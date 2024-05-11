@@ -13,7 +13,7 @@ from .models import TranscriptModel
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html', {'user_info': 'index', })
+    return render(request, 'index.html')
 
 @csrf_exempt
 def generateBlog(request):
@@ -84,7 +84,7 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return render(request, 'index.html', {'user_info': 'login'})
+                return redirect('/')
             else:
                 error_messages = 'Invalid username or password'
                 return render(request, 'login.html', {"error_message": error_messages})
@@ -130,4 +130,4 @@ def user_signup(request):
 
 def user_logout(request):
     logout(request)
-    return render(request, 'index.html', {'user_info': 'logout'})
+    return redirect('/')
