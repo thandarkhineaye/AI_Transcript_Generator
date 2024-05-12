@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Blog Posts</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Style for the buttons */
+        .button-container {
+            display: flex; /* Use flexbox to arrange buttons horizontally */
+            gap: 10px; /* Gap between buttons */
+        }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans antialiased">
     <!-- Navbar -->
@@ -26,17 +33,32 @@
                 <h2 class="text-xl mb-4 font-semibold">All Transcript Posts</h2>
                 <div class="space-y-4">
                     {% for post in transcript_posts reversed %}
-                    <a href='transcript-details/{{post.id}}'>
-                        <div class="border border-gray-300 p-4 rounded-lg">
-                            <h3 class="text-lg font-semibold">{{post.youtube_title}}</h3>
-                            <p>{{post.generated_content|truncatechars:80}}</p>
+                    <div class="border border-gray-300 p-4 rounded-lg">
+                        <a href='transcript-details/{{post.id}}'>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold">{{post.youtube_title}}</h3>
+                                <p>{{post.generated_content|truncatechars:80}}</p><br>
+                            </div>
+                        </a>
+                        <!-- Container for the buttons -->
+                        <div class="button-container">
+                            <form method="post" action="/delete-post/{{ post.id }}/">
+                                {% csrf_token %}
+                                <input type="hidden" id="delete-pk" value="{{ post.id }}">
+                                <button id="deletePostButton" class="bg-red-300 text-black px-4 py-2 rounded hover:bg-red-700 transition-colors">Delete</button>
+                            </form>
+                            <form method="post" action="/export-text/{{ post.id }}/">
+                                {% csrf_token %}
+                                <input type="hidden" id="export-pk" value="{{ post.id }}">
+                                <button id="exportTextButton" class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-500 transition-colors">Export Text</button>
+                            </form>
                         </div>
-                    </a>
+                    </div>
+                    <br>
                     {% endfor %}
                     <!-- Repeat -->
                 </div>
             </section>
-            
         </div>
     </div>
     <footer class="text-center p-4 text-blacl mt-6">
