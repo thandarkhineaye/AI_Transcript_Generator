@@ -17,6 +17,10 @@ python3 -m venv venv
 .\venv\bin\activate\Scripts\activate
 ```
 ```
+cd backend/ai_blog_app
+pip install -r requirements.txt
+```
+```
 python manage.py runserver
 ```
 
@@ -26,6 +30,10 @@ python3 -m venv venv
 ```
 ```
 source venv/bin/activate
+```
+```
+cd backend/ai_blog_app
+pip install -r requirements.txt
 ```
 ```
 python manage.py runserver

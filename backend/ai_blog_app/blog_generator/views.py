@@ -13,8 +13,7 @@ import logging
 import assemblyai as aai
 import pytube
 from .models import TranscriptModel
-
-
+from credentials.key import assembly_api_key
 logger = logging.getLogger(__name__)
 
 
@@ -171,7 +170,7 @@ def get_transcript(link):
     Returns     : transcript text
     """
     audio_file              = download_audio(link)
-    aai.settings.api_key    = "your assembly api key"
+    aai.settings.api_key    = assembly_api_key
     transcriber             = aai.Transcriber()
     transcript              = transcriber.transcribe(audio_file)
     return transcript.text
